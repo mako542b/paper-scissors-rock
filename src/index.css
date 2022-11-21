@@ -1,0 +1,116 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+    --hec-w : 10rem;
+    --bonus-translate: calc(var(--hec-w)/-2);
+    --circ-w: 3.5rem;
+    --circ-border: 5rem;
+}
+
+@media (min-width:368px) {
+    body {
+        --hec-w : 14rem;
+        --circ-w: 5rem;
+        --circ-border: 7rem;
+    }
+}
+
+@media (min-width:768px) {
+    body {
+        --hec-w : 18rem;
+    }
+}
+
+
+.gen-item-bonus {
+    --scale-hov: 100%;
+    transition: transform .2s ease-in-out, box-shadow .2s ease-in-out;
+    box-shadow: 0 10px 5px 15px rgba(0,0,0,.3);
+}
+
+.gen-item-bonus:hover {
+    --scale-hov: 125%;
+    box-shadow: 0 15px 10px 25px rgba(0,0,0,.3);
+}
+
+.scissorsBonus {
+    --rotate : 0deg;
+    transform: translate(0,var(--bonus-translate)) rotate(var(--rotate)) scale(var(--scale-hov));
+    rotate: 0deg;
+}
+
+
+.paperBonus {
+    --rotate : -72deg;
+    transform: translate(0,var(--bonus-translate)) rotate(var(--rotate)) scale(var(--scale-hov));
+    rotate: 72deg;
+}
+
+
+.rockBonus {
+    --rotate : -144deg;
+    transform: translate(0,var(--bonus-translate)) rotate(var(--rotate)) scale(var(--scale-hov));
+    rotate: 144deg;
+}
+
+.lizardBonus {
+    --rotate : 144deg;
+    transform: translate(0,var(--bonus-translate)) rotate(var(--rotate)) scale(var(--scale-hov));
+    rotate: -144deg;
+}
+
+.spockBonus {
+    --rotate : 72deg;
+    transform: translate(0,var(--bonus-translate)) rotate(var(--rotate)) scale(var(--scale-hov));
+    rotate: -72deg;
+}
+
+.paper-div {
+    @apply top-0 left-0 -translate-x-1/2 -translate-y-1/2
+}
+
+.scissors-div {
+    @apply top-0 right-0 translate-x-1/2 -translate-y-1/2
+}
+
+.rock-div {
+    @apply bottom-0 left-1/2 -translate-x-1/2 translate-y-1/2
+}
+
+.gen-item {
+    @apply w-24 before:w-32 md:w-32 md:before:w-44 aspect-square rounded-full grid place-items-center z-10 before:aspect-square after:inset-0
+}
+
+.gen-item-bonus {
+    @apply w-circW before:w-circBorder md:w-24 md:before:w-32 aspect-square rounded-full grid place-items-center z-10 before:aspect-square after:inset-0 animate-transformBonus
+}
+
+.gen-item-picked {
+    @apply w-24 before:w-32 sm:w-32 sm:before:w-44 lg:w-44 lg:before:w-60 aspect-square rounded-full grid place-items-center z-10 before:aspect-square after:inset-0
+}
+
+.gen-item::before,
+.gen-item-bonus::before,
+.gen-item-picked::before {
+    @apply absolute rounded-full -z-10 shadow-outerShaddow bg-gradient-to-t
+}
+
+.gen-item::after,
+.gen-item-picked::after,
+.gen-item-bonus::after {
+    @apply absolute bg-gray-100 rounded-full shadow-innerShaddow
+}
+
+.won::before {
+    @apply shadow-1Circle
+}
+
+.rules-button {
+    @apply h-fit w-auto min-w-button px-4 tracking-wider rounded-md py-1 border-solid border-2 border-white text-white hover:text-black hover:bg-white
+}
+
+.scale-svg {
+    @apply scale-50 xs:scale-75 md:scale-100
+}
