@@ -1,42 +1,24 @@
-import { useEffect, useState } from "react"
+import { useEffect, useState, Dispatch, SetStateAction } from "react"
 
-
-type typeHookNumber = [
-    a: number,
-        b: React.Dispatch<React.SetStateAction<number>>
-    ]
-    
-type typeHookBoolean = [
-    a: boolean,
-    b: React.Dispatch<React.SetStateAction<boolean>>
+type returnType<T> = [
+    value: T,
+    setter: Dispatch<SetStateAction<T>>
 ]
     
-const useSessionStorage = (key: string): typeHookNumber => {
+function useSessionStorage<T>(key: string, initialValue: any): returnType<T> {
 
-    const [value, setter] = useState(() => {
+    const [value, setter] = useState<T>(() => {
         let val = sessionStorage.getItem(key)
-        return val ? parseInt(val) : 0
+        if(val) return JSON.parse(val)
+        else if(initialValue instanceof Function) return initialValue()
+        return initialValue
     })
 
     useEffect(() => {
-        sessionStorage.setItem(key, value.toString())
+        sessionStorage.setItem(key, JSON.stringify(value))
     }, [key, value])
 
     return [value, setter]
 }
 
-const useSessionStorageBool = (key: string): typeHookBoolean => {
-
-    const [value, setter] = useState(() => {
-        let val = sessionStorage.getItem(key)
-        return val ? val === 'true' : false
-    })
-
-    useEffect(() => {
-        sessionStorage.setItem(key, value.toString())
-    }, [key, value])
-
-    return [value, setter]
-}
-
-export {useSessionStorage, useSessionStorageBool}
+export default useSessionStorage

@@ -4,7 +4,7 @@ import ChooseItem from "./ChooseItem"
 import ChooseItemBonus from "./ChooseItemBonus"
 import Rules from './Rules'
 import ItemPicked from './ItemPicked'
-import {useSessionStorage, useSessionStorageBool } from './useSessionStorage'
+import useSessionStorage from './useSessionStorage'
 
 interface choisesInterface {
   playerItem: string
@@ -15,14 +15,12 @@ interface choisesInterface {
 
 function App() {
 
-  const [score, setScore] = useSessionStorage('score')
-  // const [score, setScore] = useState(0)
+  const [score, setScore] = useSessionStorage<number>('score', 0)
   const [rulesOn, setRulesOn] = useState(false)
   const [choosed, setChoosed] = useState(false)
   const [choises, setChoises] = useState({playerItem:'', houseItem:''})
   const [result, setResult] = useState('and...')
-  // const [bonus, setBonus] = useState(false)
-  const [bonus, setBonus] = useSessionStorageBool('bonus')
+  const [bonus, setBonus] = useSessionStorage<boolean>('bonus',false)
 
   const itemsArr : string[] = ['scissors', 'paper', 'rock', 'spock', 'lizard']
 
