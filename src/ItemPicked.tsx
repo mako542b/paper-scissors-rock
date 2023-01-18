@@ -1,6 +1,7 @@
 interface props {
     choises : choisesInterface
     result: string
+    timeoutPointer?: number
     setChoosed: (a:boolean) => void
     setResult: (a:string) => void
 }
@@ -11,12 +12,13 @@ interface choisesInterface {
 }
 
 
-const ItemPicked = function({choises, result, setChoosed, setResult}:props) {
+const ItemPicked = function({choises, result, setChoosed, setResult, timeoutPointer}:props) {
     
     let playerWon: boolean = result === "YOU WON"
-    let houseWon: boolean = result ==="YOU LOSE"
+    let houseWon: boolean = result === "YOU LOSE"
 
     const handleNewGame = ():void => {
+        if(timeoutPointer) clearTimeout(timeoutPointer)
         setChoosed(false) 
         setResult('and...')
     }
